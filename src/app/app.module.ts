@@ -3,6 +3,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Formio, FormioModule, FormioAppConfig } from '@formio/angular';
+
+import { FormsModule } from '@angular/forms';
+
+
+import { HttpClientModule } from '@angular/common/http';
 // import premium from '@formio/premium';
 // Formio.use(premium);
 import { FormioGrid } from '@formio/angular/grid';
@@ -33,6 +38,8 @@ import { CustomSubmissionGridHeaderComponent } from './data/submission/Submissio
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    FormsModule,
     CommonModule,
     FormioModule,
     FormioGrid,

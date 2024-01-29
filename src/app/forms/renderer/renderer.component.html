@@ -129,11 +129,13 @@
 
 
 <formio
-(submit)="onSubmit($event)"
+
+(submit)="postToFirebase($event)"
  [form]='{
   "components": [
       {
           "label": "Name",
+          "placeholder": "Enter first name",
           "applyMaskOn": "change",
           "tableView": true,
           "validate": {
@@ -146,24 +148,13 @@
           "input": true
       },
       {
-          "label": "Checkbox",
-          "tableView": false,
-          "validate": {
-              "required": true
-          },
-          "key": "checkbox",
-          "type": "checkbox",
-          "input": true,
-          "defaultValue": false
-      },
-      {
           "label": "Radio",
           "optionsLabelPosition": "right",
           "inline": false,
           "tableView": false,
           "values": [
               {
-                  "label": "num 1 ",
+                  "label": "num 1",
                   "value": "num1",
                   "shortcut": ""
               },
@@ -174,21 +165,57 @@
               }
           ],
           "validate": {
-              "required": true
+              "required": true,
+              "onlyAvailableItems": true
           },
           "key": "radio",
           "type": "radio",
           "input": true
       },
       {
-          "type": "button",
-          "label": "Submit",
-          "key": "submit",
-          "disableOnInvalid": true,
-          "input": true,
-          "tableView": false
+          "label": "Select",
+          "widget": "choicesjs",
+          "tableView": true,
+          "data": {
+              "values": [
+                  {
+                      "label": "1",
+                      "value": "1"
+                  },
+                  {
+                      "label": "2",
+                      "value": "2"
+                  },
+                  {
+                      "label": "3",
+                      "value": "3"
+                  },
+                  {
+                      "label": "4",
+                      "value": "4"
+                  }
+              ]
+          },
+          "validate": {
+              "required": true,
+              "onlyAvailableItems": true
+          },
+          "key": "select",
+          "type": "select",
+          "input": true
+      },
+      {
+        "label": "Submit",
+            "showValidations": false,
+            "disableOnInvalid": true,
+            "tableView": false,
+            "key": "submit",
+            "type": "button",
+            "input": true
       }
   ]
 }'></formio>
+
+<br>
 
 
