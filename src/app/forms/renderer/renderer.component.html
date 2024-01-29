@@ -45,6 +45,8 @@
   &#125;
 ]&#125;"&gt;&lt;/formio&gt;</code></pre>
     </div>
+
+    
     <p>and populate with data</p>
     <div class="card bg-light p-2">
       <pre><code class="language-html">&lt;formio [form]="&#123;components: [
@@ -124,3 +126,69 @@
     </div>
   </div>
 </div>
+
+
+<formio
+(submit)="onSubmit($event)"
+ [form]='{
+  "components": [
+      {
+          "label": "Name",
+          "applyMaskOn": "change",
+          "tableView": true,
+          "validate": {
+              "required": true,
+              "minLength": 3,
+              "maxLength": 10
+          },
+          "key": "name",
+          "type": "textfield",
+          "input": true
+      },
+      {
+          "label": "Checkbox",
+          "tableView": false,
+          "validate": {
+              "required": true
+          },
+          "key": "checkbox",
+          "type": "checkbox",
+          "input": true,
+          "defaultValue": false
+      },
+      {
+          "label": "Radio",
+          "optionsLabelPosition": "right",
+          "inline": false,
+          "tableView": false,
+          "values": [
+              {
+                  "label": "num 1 ",
+                  "value": "num1",
+                  "shortcut": ""
+              },
+              {
+                  "label": "num 2",
+                  "value": "num2",
+                  "shortcut": ""
+              }
+          ],
+          "validate": {
+              "required": true
+          },
+          "key": "radio",
+          "type": "radio",
+          "input": true
+      },
+      {
+          "type": "button",
+          "label": "Submit",
+          "key": "submit",
+          "disableOnInvalid": true,
+          "input": true,
+          "tableView": false
+      }
+  ]
+}'></formio>
+
+

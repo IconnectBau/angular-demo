@@ -8,6 +8,14 @@ import { PrismService } from '../../Prism.service';
 })
 export class RendererComponent implements AfterViewInit {
 
+
+
+onSubmit($event: any) {
+
+  console.log("submitted")
+
+}
+
   constructor(public prism: PrismService) { }
   ngAfterViewInit() {
     this.prism.init();
