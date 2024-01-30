@@ -1,9 +1,8 @@
-import { Component, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, OnInit } from '@angular/core';
 import { PrismService } from '../../Prism.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { NgForm } from '@angular/forms';
-import { NodeGCPerformanceDetail } from 'perf_hooks';
 
 @Component({
   selector: 'app-renderer',
@@ -12,18 +11,53 @@ import { NodeGCPerformanceDetail } from 'perf_hooks';
 })
 export class RendererComponent implements AfterViewInit {
 
+  private studentData: any = {}; 
+
+  fullName: string;
+
+  @ViewChild('formio') formIO: any;
+
+
+
+  fetchStudentData() {
+    this.http.get<any>(
+      'https://directcoreapi.bau.edu.lb/eventapi/Student/202100579'
+    )
+      .subscribe((response) => {
+        const student = response[0]; 
+
+        this.studentData.pidm = student.pidm;
+        this.studentData.studentID = student.studentID;
+        this.studentData.fullName = student.fullName;
+        this.studentData.faculty = student.faculty;
+        this.studentData.campus = student.campus;
+        this.studentData.program = student.program;
+
+
+        this.fullName = this.studentData.fullName;
+
+        console.log(this.fullName);
+
+
+
+      });
+  }
+
   @ViewChild('surveyForm', { read: NgForm }) surveyForm: any;
+
+
 
 onSubmit($event: any) {
 
   this.postToFirebase($event);
 
-  console.log("submitted")
+  // console.log("submitted")
+
+  // console.log(this.formIO.form);
 
   // setTimeout(() => {
   //   window.location.href = 'https://icas.bau.edu.lb:8443/cas/login?service=https://mis.bau.edu.lb/web/v12/iconnectv12/cas/sso.aspx';
   // }, 1000); 
-
 }
 
 postToFirebase(User: { name: string, radio: string, select: string}) {
@@ -42,7 +76,11 @@ postToFirebase(User: { name: string, radio: string, select: string}) {
 
   constructor(public prism: PrismService, private http: HttpClient) { }
   ngAfterViewInit() {
-    this.prism.init();
+    this.fetchStudentData();
+
+    setTimeout(() => {
+      this.prism.init();
+    }, 1000); 
   }
 
 }

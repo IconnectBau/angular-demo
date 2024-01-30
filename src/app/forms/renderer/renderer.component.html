@@ -127,22 +127,21 @@
   </div>
 </div>
 
+{{formio.value}}
 
 <formio
+(submit)="onSubmit($event)"
+#formio 
 
-(submit)="postToFirebase($event)"
  [form]='{
   "components": [
       {
           "label": "Name",
-          "placeholder": "Enter first name",
+          "defaultValue": fullName,
           "applyMaskOn": "change",
+          "disabled": true,
           "tableView": true,
-          "validate": {
-              "required": true,
-              "minLength": 3,
-              "maxLength": 10
-          },
+
           "key": "name",
           "type": "textfield",
           "input": true
@@ -211,7 +210,9 @@
             "tableView": false,
             "key": "submit",
             "type": "button",
-            "input": true
+            "input": true,
+           
+    
       }
   ]
 }'></formio>
