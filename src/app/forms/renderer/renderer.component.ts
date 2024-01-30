@@ -15,6 +15,8 @@ export class RendererComponent implements AfterViewInit {
 
   fullName: string;
 
+
+
   @ViewChild('formio') formIO: any;
 
 
@@ -43,13 +45,42 @@ export class RendererComponent implements AfterViewInit {
       });
   }
 
-  @ViewChild('surveyForm', { read: NgForm }) surveyForm: any;
+  onSubmit2() {
 
+    const formData = new FormData();
+    formData.append('name', this.formIO.value.name);
+    formData.append('radio', this.formIO.value.radio);
+    formData.append('select', this.formIO.value.select);
+    const headers = new HttpHeaders()
+      .set('enctype', 'multipart/form-data');
+
+    this.http.post(
+      'https://misgen6.bau.edu.lb:8000/testform', 
+      formData, { headers })
+      .subscribe(response => {
+        console.log(response);
+      });
+  }
+
+
+  onSubmit1(User: { name: string, radio: string, select: number}) {
+
+    console.log(User);
+    this.http.post<{ name: string }>(
+      '',
+
+      // 'https://misgen6.bau.edu.lb:8000/testform',
+
+      User)
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
 
 
 onSubmit($event: any) {
 
-  this.postToFirebase($event);
+  this.onSubmit1($event);
 
   // console.log("submitted")
 
@@ -60,17 +91,6 @@ onSubmit($event: any) {
   // }, 1000); 
 }
 
-postToFirebase(User: { name: string, radio: string, select: string}) {
-
-  console.log(User);
-  this.http.post<{ name: string }>(
-    'https://library-14e9e-default-rtdb.firebaseio.com/forms',
-    User)
-    .subscribe((res) => {
-      console.log(res);
-
-    });
-}
 
 
 
