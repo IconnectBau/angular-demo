@@ -63,7 +63,9 @@ export class RendererComponent implements AfterViewInit {
   }
 
 
-  onSubmit1(User: { name: string, radio: string, select: number}) {
+  onSubmit1(User: { name: string, radio: string,
+     select: number
+    }) {
 
     console.log(User);
     this.http.post<{ name: string }>(
