@@ -67,9 +67,9 @@ export class RendererComponent implements AfterViewInit {
 
     console.log(User);
     this.http.post<{ name: string }>(
-      '',
+      // '',
 
-      // 'https://misgen6.bau.edu.lb:8000/testform',
+      'https://misgen6.bau.edu.lb:8000/testform',
 
       User)
       .subscribe((res) => {
